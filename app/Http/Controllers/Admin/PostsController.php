@@ -55,6 +55,7 @@ class PostsController extends Controller
 
         $post = new Post();
         $post->title = $postData["title"];
+        $post->user_id = Auth::user()->id;
         $post->content = $postData["content"];
         $post->post_image_url = $postData["post_image_url"];
         $post->date = date("Y/m/d H:i:s");
