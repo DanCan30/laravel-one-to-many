@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Category;
 use App\Models\Admin\Post;
 use DateTime;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class PostsController extends Controller
         "title" => "required|min:3|max:150",
         "content" => "required|min:5|max:255",
         "post_image_url" => "active_url",
+        "category" => "exists:categories,id"
     ];
 
     public function __construct()
@@ -40,7 +42,8 @@ class PostsController extends Controller
     public function create()
     {
         $post = new Post();
-        return view("admin.create", compact("post"));
+        $categories = Category::all();
+        return view("admin.create", compact("post"), compact("categories"));
     }
 
     /**
@@ -59,6 +62,7 @@ class PostsController extends Controller
         $post->content = $postData["content"];
         $post->post_image_url = $postData["post_image_url"];
         $post->date = date("Y/m/d H:i:s");
+        $post->category_id = $postData["category"];
         $post->save();
 
         return redirect()->route("admin.show", $post->id)->with("created", $post->id);
@@ -86,7 +90,8 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view("admin.edit", compact("post"));
+        $categories = Category::all();
+        return view("admin.edit", compact("post"), compact("categories"));
     }
 
     /**
@@ -105,6 +110,7 @@ class PostsController extends Controller
         $post->title = $postData["title"];
         $post->content = $postData["content"];
         $post->post_image_url = $postData["post_image_url"];
+        $post->category_id = $postData["category"];
 
         $post->save();
 
