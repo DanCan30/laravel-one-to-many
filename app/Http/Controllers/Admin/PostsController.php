@@ -54,7 +54,7 @@ class PostsController extends Controller
         $postData = $request->validate($this->validationRules);
 
         $post = new Post();
-        $post->user = Auth::user()->name;
+        // $post->user_id = ;
         $post->title = $postData["title"];
         $post->content = $postData["content"];
         $post->post_image_url = $postData["post_image_url"];
