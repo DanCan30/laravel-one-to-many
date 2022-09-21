@@ -15,6 +15,7 @@
                         <td>Title</td>
                         <td>Username</td>
                         <td>Date</td>
+                        <td>Category</td>
                         <td></td>
                     </thead>
                     <tbody>
@@ -24,6 +25,7 @@
                                 <td><a href="{{ route("admin.show", $post->id) }}">{{ $post->title }}</a></td>
                                 <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->date }}</td>
+                                <td>{{ $post->category->name }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route("admin.edit", $post->id) }}" class="btn btn-sm btn-success">Edit</a>
                                     <form action="{{ route("admin.destroy", $post->id) }}" method="POST" class="delete-element-button">
