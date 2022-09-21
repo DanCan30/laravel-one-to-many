@@ -28,7 +28,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where("user_id", Auth::user()->id)->get();
         return view("admin.index", compact("posts"));
     }
 
@@ -54,7 +54,6 @@ class PostsController extends Controller
         $postData = $request->validate($this->validationRules);
 
         $post = new Post();
-        // $post->user_id = ;
         $post->title = $postData["title"];
         $post->content = $postData["content"];
         $post->post_image_url = $postData["post_image_url"];
