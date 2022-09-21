@@ -14,9 +14,9 @@ class PostsController extends Controller
 
     private $validationRules = [
         "title" => "required|min:3|max:150",
-        "content" => "required|min:5|max:255",
+        "content" => "required|min:5",
         "post_image_url" => "active_url",
-        "category" => "exists:categories,id"
+        "category" => "required|exists:categories,id"
     ];
 
     public function __construct()
